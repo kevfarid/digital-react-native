@@ -1,12 +1,22 @@
-import { Pressable, Text, PressableProps, StyleSheet } from 'react-native';
+import {
+  Pressable,
+  Text,
+  PressableProps,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native';
 import { useTheme } from '../Theme';
 
-interface ButtonProps extends PressableProps {
+interface ButtonProps extends TouchableOpacityProps {
   textButtonType?: 'textButton' | 'textButton2';
+  children: string;
+  style?: TouchableOpacityProps['style'];
 }
 
 export default function Button({
   textButtonType = 'textButton',
+  children,
   ...oherProps
 }: ButtonProps) {
   const { theme, getStyle } = useTheme();
@@ -16,15 +26,14 @@ export default function Button({
       backgroundColor: theme.colors.primary,
       padding: 14,
       borderRadius: 10,
-      width: '100%',
       alignItems: 'center',
-      maxWidth: 353,
+      width: '100%',
     },
   });
 
   return (
-    <Pressable {...oherProps} style={styles.button}>
-      <Text style={getStyle(textButtonType)}>Button</Text>
-    </Pressable>
+    <TouchableOpacity {...oherProps} style={[styles.button, oherProps.style]}>
+      <Text style={getStyle(textButtonType)}>{children}</Text>
+    </TouchableOpacity>
   );
 }

@@ -6,7 +6,7 @@ import ThemeContext from '../contexts/ThemeContext';
 export default function useTheme() {
   const { theme } = useContext(ThemeContext);
 
-  const getStyle = (key: string, styles?: Generic<string>) => {
+  const getStyle = (key: string, styles?: Generic<string | number>) => {
     const components: {
       [key: string]: {
         [key: string]: any;

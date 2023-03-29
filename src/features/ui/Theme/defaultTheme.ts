@@ -17,13 +17,13 @@ const theme: Theme = {
   colors,
   components: {
     title: {
-      fontSize: 16,
-      fontWeight: 'bold',
+      fontSize: 18,
+      fontWeight: 800,
       color: colors.text.main,
     },
     subtitle: {
       fontSize: 14,
-      fontWeight: 'bold',
+      fontWeight: 800,
       color: colors.text.secondary,
     },
     text: {
@@ -41,7 +41,8 @@ const theme: Theme = {
     },
     textButton2: {
       fontSize: 16,
-      fontWeight: 'bold',
+      fontWeight: 800,
+      lineHeight: 24,
       color: colors.text.white,
     },
   },
