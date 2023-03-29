@@ -1,18 +1,19 @@
-import {
-  ScrollView,
-  StyleSheet,
-  SectionList,
-  SectionListProps,
-} from 'react-native';
+import { StyleSheet, SectionList, SectionListProps } from 'react-native';
 import ItemType from '../@types/Item';
-import { MODES } from '../@types/Modes';
 import Item from './Item';
 
 interface Props extends Omit<SectionListProps<ItemType>, 'sections'> {
   items: ItemType[];
+  onPress?: () => void;
+  navigation?: any;
 }
 
-export default function ListItems({ items, ...props }: Props) {
+export default function ListItems({
+  items,
+  onPress,
+  navigation,
+  ...props
+}: Props) {
   const styles = createStyles();
 
   return (
@@ -22,7 +23,17 @@ export default function ListItems({ items, ...props }: Props) {
       keyExtractor={(item) => item.id}
       onRefresh={props.onRefresh}
       refreshing={false}
-      renderItem={({ item }) => <Item styleName={styles.card} item={item} />}
+      renderItem={({ item }) => (
+        <Item
+          styleName={styles.card}
+          item={item}
+          onPress={() =>
+            navigation.navigate('DetailProduct', {
+              item,
+            })
+          }
+        />
+      )}
     />
   );
 }

@@ -11,6 +11,9 @@ const colors: Theme['colors'] = {
     success: '#00B833',
     error: '#FF0000',
   },
+  header: {
+    background: '#CFD6FF',
+  },
 };
 
 const theme: Theme = {

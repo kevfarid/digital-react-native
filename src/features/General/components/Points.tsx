@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, StyleSheetProperties } from 'react-native';
 import { useTheme } from '../../ui/Theme';
+import  formatNumbers from '../../../utils/formatNumbers';
 
 interface CardProps {
   month?: string;
@@ -12,15 +13,17 @@ export default function Points({ month, style, points }: CardProps) {
   const { theme, getStyle } = useTheme();
   const styles = createStyles(theme);
 
-  const monthFormat = new Date().toLocaleString('default', { month: 'long' });
-  const pointsFormat = points.toLocaleString('es-ES', {
-    style: 'currency',
-    currency: 'USD',
-  }).replace('US$', '');
+  const monthFormat = new Date().toLocaleString('es', { month: 'long' });
 
   return (
     <View style={styles.card}>
-      <Text style={getStyle('textButton2')}>{month || monthFormat}</Text>
+      <Text
+        style={getStyle('textButton2', {
+          textTransform: 'capitalize',
+        })}
+      >
+        {month || monthFormat}
+      </Text>
       <Text
         style={getStyle('title', {
           marginTop: 7,
@@ -29,7 +32,7 @@ export default function Points({ month, style, points }: CardProps) {
           alignSelf: 'center',
         })}
       >
-        {pointsFormat} pts
+        {formatNumbers(points)} pts
       </Text>
     </View>
   );

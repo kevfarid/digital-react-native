@@ -1,11 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import Button from '../ui/Button';
 import { useTheme } from '../ui/Theme';
 import ListItems from './components/ListItems';
@@ -13,8 +7,13 @@ import Points from './components/Points';
 import { MODES } from './@types/Modes';
 import { getPoints } from './services/points';
 import ItemType from './@types/Item';
+import { NavigationProp } from '@react-navigation/native';
 
-export default function General() {
+export default function General({
+  navigation,
+}: {
+  navigation: NavigationProp<any>;
+}) {
   const [mode, setMode] = useState<MODES>(MODES.All);
   const [points, setPoints] = useState(0);
   const [items, setItems] = useState<ItemType[]>([]);
@@ -63,7 +62,11 @@ export default function General() {
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <ListItems onRefresh={getData} items={items} />
+        <ListItems
+          onRefresh={getData}
+          items={items}
+          navigation={navigation}
+        />
       )}
       <View style={styles.buttons}>
         {mode !== MODES.All ? (

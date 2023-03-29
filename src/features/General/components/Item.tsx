@@ -8,6 +8,8 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
+import formatDate from '../../../utils/formatDate';
+import formatNumbers from '../../../utils/formatNumbers';
 import IconNext from '../../ui/Icons/Next';
 import { useTheme } from '../../ui/Theme';
 import ItemType from '../@types/Item';
@@ -38,7 +40,7 @@ export default function Item({ item, styleName, ...props }: Props) {
               fontSize: 12,
             })}
           >
-            {item.createdAt}
+            {formatDate(item.createdAt)}
           </Text>
         </View>
       </View>
@@ -58,7 +60,7 @@ export default function Item({ item, styleName, ...props }: Props) {
             fontWeight: 800,
           })}
         >
-          {item.points}
+          {formatNumbers(item.points, 0)}
         </Text>
       </View>
       <IconNext />

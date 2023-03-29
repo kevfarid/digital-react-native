@@ -12,6 +12,9 @@ interface Theme {
       success: string;
       error: string;
     };
+    header: {
+      background: string;
+    };
   };
   components: {
     [key: string]: {
