@@ -8,7 +8,7 @@ interface CardProps {
   style?: StyleSheetProperties;
 }
 
-export default function Card({ month, style, points }: CardProps) {
+export default function Points({ month, style, points }: CardProps) {
   const { theme, getStyle } = useTheme();
   const styles = createStyles(theme);
 

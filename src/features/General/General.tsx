@@ -1,20 +1,43 @@
-import { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  ActivityIndicator,
+} from 'react-native';
 import Button from '../ui/Button';
 import { useTheme } from '../ui/Theme';
-import Card from './components/Card';
-
-const enum ModeTypes {
-  all = 'all',
-  wins = 'wins',
-  loses = 'loses',
-}
+import ListItems from './components/ListItems';
+import Points from './components/Points';
+import { MODES } from './@types/Modes';
+import { getPoints } from './services/points';
+import ItemType from './@types/Item';
 
 export default function General() {
-  const [mode, setMode] = useState<ModeTypes>(ModeTypes.wins);
+  const [mode, setMode] = useState<MODES>(MODES.All);
+  const [points, setPoints] = useState(0);
+  const [items, setItems] = useState<ItemType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { theme, getStyle } = useTheme();
   const styles = createStyles(theme);
+
+  const getData = useCallback(() => {
+    getPoints(mode)
+      .then(({ data, points }) => {
+        setItems(data);
+        setPoints(points);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [mode]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getData();
+  }, [mode]);
 
   return (
     <View style={styles.container}>
@@ -29,7 +52,7 @@ export default function General() {
       >
         TUS PUNTOS
       </Text>
-      <Card points={10000} />
+      <Points points={points} />
       <Text
         style={getStyle('subtitle', {
           marginVertical: 20,
@@ -37,26 +60,25 @@ export default function General() {
       >
         TUS MOVIMIENTOS
       </Text>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <ListItems onRefresh={getData} items={items} />
+      )}
       <View style={styles.buttons}>
-        {mode !== ModeTypes.all ? (
+        {mode !== MODES.All ? (
           <Button
             textButtonType='textButton2'
-            onPress={() => setMode(ModeTypes.all)}
+            onPress={() => setMode(MODES.All)}
           >
             Todos
           </Button>
         ) : (
           <>
-            <Button
-              onPress={() => setMode(ModeTypes.wins)}
-              style={styles.button}
-            >
+            <Button onPress={() => setMode(MODES.Wins)} style={styles.button}>
               Ganados
             </Button>
-            <Button
-              onPress={() => setMode(ModeTypes.loses)}
-              style={styles.button}
-            >
+            <Button onPress={() => setMode(MODES.Losses)} style={styles.button}>
               Perdidos
             </Button>
           </>
@@ -66,7 +88,7 @@ export default function General() {
   );
 }
 
-const createStyles = (theme: Theme) =>
+const createStyles = (_: Theme) =>
   StyleSheet.create({
     title: {
       flexDirection: 'column',
@@ -74,7 +96,9 @@ const createStyles = (theme: Theme) =>
     },
     container: {
       paddingTop: 60,
+      flex: 1,
       paddingHorizontal: 20,
+      paddingBottom: 40,
     },
     buttons: {
       flexDirection: 'row',

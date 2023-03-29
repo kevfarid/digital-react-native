@@ -1,7 +1,5 @@
 import {
-  Pressable,
   Text,
-  PressableProps,
   StyleSheet,
   TouchableOpacity,
   TouchableOpacityProps,
