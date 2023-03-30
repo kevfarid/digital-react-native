@@ -1,4 +1,4 @@
-interface Theme {
+export interface Theme {
   colors: {
     primary: string;
     background: string;

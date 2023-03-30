@@ -1,6 +1,6 @@
 export default function formatNumbers(
   value: number,
-  digits: number = 2,
+  digits: number = 2
 ): string {
   return value
     .toLocaleString('es-ES', {
@@ -9,5 +9,6 @@ export default function formatNumbers(
       minimumFractionDigits: digits,
       maximumFractionDigits: digits,
     })
-    .replace('US$', '');
+    .replace('US$', '')
+    .trim();
 }

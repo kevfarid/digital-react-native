@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Theme } from '../@types/Theme';
 import ThemeContext from '../contexts/ThemeContext';
 import defaultTheme from '../defaultTheme';
 
