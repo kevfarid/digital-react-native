@@ -1,12 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet, StyleSheetProperties } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import { useTheme } from '../../ui/Theme';
-import  formatNumbers from '../../../utils/formatNumbers';
+import formatNumbers from '../../../utils/formatNumbers';
 
 interface CardProps {
   month?: string;
   points: number;
-  style?: StyleSheetProperties;
+  style?: StyleProp<ViewStyle>;
 }
 
 export default function Points({ month, style, points }: CardProps) {
