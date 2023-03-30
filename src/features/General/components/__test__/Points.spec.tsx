@@ -7,6 +7,7 @@ describe('Points', () => {
   it('should render correctly', () => {
     const month = 'March';
     const points = 5000;
+
     const { getByText } = render(<Points month={month} points={points} />);
     const monthText = getByText(month);
     const pointsText = getByText(`${formatNumbers(points)} pts`);
